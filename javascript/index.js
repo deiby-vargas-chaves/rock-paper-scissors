@@ -34,16 +34,10 @@ function game() {
     var playerScore = 0;
     var computerScore = 0;
 
-    for (var i = 0; i < 5; i++) {
     var userInput = prompt("Select: paper, scissors, or rock:");
-    var lowercaseInput = userInput.toLowerCase();
     var playerSelection = checkPrompt(lowercaseInput);
     var computerSelection = getComputerChoice();
 
-    if (playerSelection === null) {
-        console.log("Invalid option. Round skipped.");
-        continue;
-    }
 
     var result = playRound(playerSelection, computerSelection);
 
@@ -69,7 +63,7 @@ function game() {
     } else {
     console.log("It's a tie game.");
     }
-}
+
 
 function checkPrompt(lowercaseInput) {
     var possibleValues = ["rock", "paper", "scissors"];
