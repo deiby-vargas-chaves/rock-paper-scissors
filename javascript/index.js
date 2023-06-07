@@ -1,73 +1,109 @@
-function getComputerChoice() {
-    var randomNumber = Math.floor(Math.random() * 3) + 1;
-    if (randomNumber === 3) {
-    return 'rock';
-    } else if (randomNumber === 2) {
-    return 'paper';
-    } else {
-    return 'scissors';
-    }
-}
+const game = () => {
+    let pScore = 0;
+    let cScore = 0;
 
-function playRound(playerSelection, computerSelection) {
-    if (
-    (playerSelection === 'rock' && computerSelection === 'rock') ||
-    (playerSelection === 'paper' && computerSelection === 'paper') ||
-    (playerSelection === 'scissors' && computerSelection === 'scissors')
-    ) {
-    return 'tie';
-    } else if (
-    (playerSelection === 'rock' && computerSelection === 'scissors') ||
-    (playerSelection === 'paper' && computerSelection === 'rock') ||
-    (playerSelection === 'scissors' && computerSelection === 'paper')
-    ) {
-    return 'win';
-    } else if (
-    (playerSelection === 'rock' && computerSelection === 'paper') ||
-    (playerSelection === 'paper' && computerSelection === 'scissors') ||
-    (playerSelection === 'scissors' && computerSelection === 'rock')
-    ) {
-    return 'lose';
-    }}
+    //start the Game
+    const startGame = () => {
+        const playBtn = document.querySelector(".intro button");
+        const introScreen = document.querySelector(".intro");
+        const match = document.querySelector(".match");
+    
+        playBtn.addEventListener("click", () => {
+          introScreen.classList.add("fadeOut");
+          match.classList.add("fadeIn");
+        });
+      };
+      //Play Match
+      const playMatch = () =>{
+        const options = document.querySelectorAll('.options button');
+        const playerPow = document.querySelector('.player-pow');
+        const computerPow = document.querySelector('.computer-pow');
 
-function game() {
-    var playerScore = 0;
-    var computerScore = 0;
+        //Computer Options
+        const computerOptions = ['rock', 'paper', 'scissors'];
 
-    var userInput = prompt("Select: paper, scissors, or rock:");
-    var playerSelection = checkPrompt(lowercaseInput);
-    var computerSelection = getComputerChoice();
+        options.forEach(option =>{
+            option.addEventListener('click', function(){
+                //computer choice
+                const computerNumber = Math.floor(Math.random() * 3);
+                const computerChoice = computerOptions[computerNumber];
+                // here is where we call compare pows
+                comparePows(this.textContent, computerChoice);
+                //update images
+                playerPow.src = `/images/${this.textContent}.png`
+                computerPow.src = `/images/${computerChoice}.png`
+            });
+        });
+      };
 
-
-    var result = playRound(playerSelection, computerSelection);
-
-    if (result === 'win') {
-        playerScore++;
-        console.log("You win this round!");
-    } else if (result === 'lose') {
-        computerScore++;
-        console.log("You lose this round.");
-    } else {
-        console.log("It's a tie this round.");
-    }
-    }
-
-    console.log("Game Over!");
-    console.log("Player Score: " + playerScore);
-    console.log("Computer Score: " + computerScore);
-
-    if (playerScore > computerScore) {
-    console.log("Congratulations! You won the game!");
-    } else if (playerScore < computerScore) {
-    console.log("Sorry, you lost the game.");
-    } else {
-    console.log("It's a tie game.");
+    const updateScore = () =>{
+        const playerScore = document.querySelector('.player-score p');
+        const computerScore = document.querySelector('.computer-score p');
+        playerScore.textContent = pScore;
+        computerScore.textContent = cScore;
     }
 
 
-function checkPrompt(lowercaseInput) {
-    var possibleValues = ["rock", "paper", "scissors"];
-    return possibleValues.includes(lowercaseInput) ? lowercaseInput : null;
-}
 
+      const comparePows = (playerChoice, computerChoice) =>{
+        // update text
+        const winner = document.querySelector('.winner');
+        if (playerChoice === computerChoice){
+            winner.textContent = 'It is a tie';
+            return;
+        }
+        //Check for Rock
+        if(playerChoice === 'rock'){
+            if (computerChoice === 'scissors'){
+                winner.textContent = 'Player wins'
+                pScore++;
+                updateScore();                return;
+            }else{
+                winner.textContent = 'Computer wins'
+                cScore++;
+                updateScore();  
+                return;
+            }
+
+        }
+        //Check for paper
+        if(playerChoice === 'paper'){
+            if (computerChoice === 'scissors'){
+                winner.textContent = 'Computer wins'
+                cScore++;
+                updateScore();  
+                return;
+            }else{
+                winner.textContent = 'Player wins'
+                pScore++;
+                updateScore();  
+                return;
+            }
+
+        }
+        //Check for scissors
+        if(playerChoice === 'scissors'){
+            if (computerChoice === 'paper'){
+                winner.textContent = 'Player wins'
+                pScore++;
+                updateScore();  
+                return;
+            }else{
+                winner.textContent = 'Computer wins'
+                cScore++;
+                updateScore();  
+                return;
+            }
+
+        }
+      }
+
+    // is call all the inner function
+    startGame();
+    playMatch();
+    
+};
+//start the game function
 game();
+
+
