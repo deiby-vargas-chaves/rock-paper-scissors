@@ -9,12 +9,12 @@ const game = () => {
         const match = document.querySelector(".match");
     
         playBtn.addEventListener("click", () => {
-          introScreen.classList.add("fadeOut");
-          match.classList.add("fadeIn");
+        introScreen.classList.add("fadeOut");
+        match.classList.add("fadeIn");
         });
-      };
+    };
       //Play Match
-      const playMatch = () =>{
+    const playMatch = () =>{
         const options = document.querySelectorAll('.options button');
         const playerPow = document.querySelector('.player-pow');
         const computerPow = document.querySelector('.computer-pow');
@@ -34,7 +34,7 @@ const game = () => {
                 computerPow.src = `/images/${computerChoice}.png`
             });
         });
-      };
+    };
 
     const updateScore = () =>{
         const playerScore = document.querySelector('.player-score p');
@@ -45,7 +45,7 @@ const game = () => {
 
 
 
-      const comparePows = (playerChoice, computerChoice) =>{
+    const comparePows = (playerChoice, computerChoice) =>{
         // update text
         const winner = document.querySelector('.winner');
         if (playerChoice === computerChoice){
@@ -96,7 +96,7 @@ const game = () => {
             }
 
         }
-      }
+    }
 
     // is call all the inner function
     startGame();
